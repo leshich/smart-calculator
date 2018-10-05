@@ -1,26 +1,51 @@
 class SmartCalculator {
   constructor(initialValue) {
-    // your implementation
+    this.expression = `${initialValue}`;
+    this.actions = {
+      add: '+',
+      subtract: '-',
+      multiply: '*',
+      devide: '/',
+      pow: '**'
+    }
   }
 
   add(number) {
-    // your implementation
+    this.addToExpression('add', number);
+    return this;
   }
   
   subtract(number) {
-    // your implementation
+    this.addToExpression('subtract', number);
+    return this;
   }
 
   multiply(number) {
-    // your implementation
+    this.addToExpression('multiply', number);
+    return this;
   }
 
   devide(number) {
-    // your implementation
+    this.addToExpression('devide', number);
+    return this;
   }
 
   pow(number) {
-    // your implementation
+    this.addToExpression('pow', number);
+    return this;
+  }
+
+  valueOf() {
+    return new Function(`return ${this.expression}`)();
+  }
+
+  notNumber(number) {
+    return isNaN(number);
+  }
+
+  addToExpression(type, number) {
+    if (this.notNumber(number)) throw new Error('not a number!');
+    this.expression += this.actions[type] + number;
   }
 }
 
